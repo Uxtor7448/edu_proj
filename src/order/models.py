@@ -1,4 +1,6 @@
 from dataclasses import dataclass, field
+from typing import List
+
 
 @dataclass
 class OrderLine:
@@ -9,8 +11,12 @@ class OrderLine:
     def subtotal(self) -> float:
         return self.quantity * self.unit_price
 
+
 @dataclass
 class Order:
     id: str
     status: str = "Draft"
-    lines: list = field(default_factory=list)
+    lines: List[OrderLine] = field(default_factory=list)
+
+    def add_line(self, line: OrderLine) -> None:
+        self.lines.append(line)
